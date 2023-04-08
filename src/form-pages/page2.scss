@@ -1,0 +1,122 @@
+@use "../styles/functions.scss" as *;
+
+.input__wrapper {
+  //
+
+  @include breakpoint(medium) {
+    flex-grow: 1;
+    flex-basis: rem(100);
+  }
+
+  .label-parent {
+    padding: 0.7em 1em;
+    border: rem(1) solid hsl(var(--Neutral-200));
+    cursor: pointer;
+    display: flex;
+    gap: 1rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+      border-color: hsl(var(--Primary-200));
+    }
+
+    @include breakpoint(medium) {
+      flex-direction: column;
+      justify-content: space-between;
+      height: rem(160);
+    }
+
+    .label-image {
+      aspect-ratio: 1 /1;
+      width: 2.5rem;
+    }
+
+    .label__info {
+      //
+
+      &--title {
+        color: hsl(var(--Primary-100));
+        font-weight: 500;
+        font-size: clamp(1rem, 0.73rem + 1.13vw, 1.3rem);
+      }
+
+      &--price {
+        color: hsl(var(--Neutral-100));
+        font-size: clamp(0.8rem, 0.62rem + 0.75vw, 1rem);
+      }
+    }
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    &:checked + .label-parent {
+      background-color: hsl(var(--Neutral-300));
+      border: rem(1) solid hsl(var(--Primary-200));
+    }
+  }
+}
+
+.plans {
+  // outline: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @include breakpoint(medium) {
+    margin-top: 1rem;
+    flex-direction: row;
+  }
+}
+
+.billing__type {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  //   position: relative;
+
+  .toggle {
+    background-color: hsl(var(--Primary-100));
+    position: relative;
+    border-radius: rem(100);
+    width: 2.5rem;
+    height: 1.2rem;
+    cursor: pointer;
+
+    input[type="checkbox"] {
+      display: none;
+
+      &:checked + .circle {
+        transform: translate(90%, -45%);
+      }
+    }
+    .circle {
+      background-color: hsl(var(--Neutral-500));
+
+      aspect-ratio: 1 / 1;
+      width: 0.8rem;
+      border-radius: rem(100);
+      position: absolute;
+
+      left: 0.7rem;
+      top: 50%;
+
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+
+  .monthly,
+  .yearly {
+    color: hsl(var(--Neutral-100));
+    font-weight: 500;
+    font-size: 0.8rem;
+    font-size: clamp(0.8rem, 0.62rem + 0.75vw, 1rem);
+    cursor: pointer;
+
+    &.active {
+      color: hsl(var(--Primary-100));
+    }
+  }
+}

@@ -1,0 +1,49 @@
+@use "../styles/functions.scss" as *;
+
+.details__wrapper {
+  //   outline: 1px solid red;
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+
+  .input__wrapper {
+    //
+
+    position: relative;
+
+    .label-title {
+      color: hsl(var(--Primary-100));
+      text-transform: capitalize;
+      font-size: 0.8rem;
+      font-size: clamp(0.8rem, 0.62rem + 0.75vw, 1rem);
+    }
+
+    .error-response {
+      color: hsl(var(--Primary-500));
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .input-field {
+      width: 100%;
+      padding-inline: 0.6em;
+      padding-block: 0.5em;
+      border-radius: 0.3rem;
+      border: rem(1) solid hsl(var(--Neutral-200));
+      color: hsl(var(--Primary-200));
+
+      font-size: 1.2rem;
+
+      &::placeholder {
+        color: grey;
+      }
+
+      &:focus {
+        outline: none;
+        border: rem(1) solid hsl(var(--Primary-200));
+        border-radius: 0.3rem;
+      }
+    }
+  }
+}

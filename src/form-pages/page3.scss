@@ -1,0 +1,84 @@
+@use "../styles/functions.scss" as *;
+
+.input__wrapper {
+  .addons--input {
+    display: none;
+
+    &:checked + .addons {
+      background-color: hsl(var(--Neutral-300));
+    }
+    &:checked + .addons::after {
+      background-color: hsl(var(--Primary-200));
+      border-color: hsl(var(--Primary-200));
+    }
+    &:checked + .addons::before {
+      z-index: 1;
+      border-color: hsl(var(--Neutral-500));
+    }
+  }
+
+  .addons {
+    border: rem(1) solid hsl(var(--Neutral-200));
+    cursor: pointer;
+    border-radius: 0.4rem;
+
+    display: flex;
+    align-items: center;
+    // gap: 1.5rem;
+    padding: 0.5em 1em;
+    padding-left: 3.3rem;
+
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      aspect-ratio: 1/ 1;
+      width: 1.4rem;
+      border-radius: 0.3rem;
+      border: rem(1) solid hsl(var(--Neutral-200));
+      left: 1rem;
+      // background-color: red;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: rem(7);
+      height: rem(13);
+      border: solid transparent;
+      // border: solid red;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+
+      margin-left: 0.5rem;
+      margin-bottom: 0.2rem;
+
+      left: 1rem;
+    }
+
+    &__details {
+      //
+
+      &--name {
+        color: hsl(var(--Primary-100));
+        font-weight: 700;
+        font-size: 0.9rem;
+        font-size: clamp(0.9rem, 0.63rem + 1.13vw, 1.2rem);
+      }
+
+      &--description {
+        color: hsl(var(--Neutral-100));
+        font-size: 0.7rem;
+        font-size: clamp(0.7rem, 0.52rem + 0.75vw, 0.9rem);
+      }
+    }
+
+    &--price {
+      color: hsl(var(--Primary-200));
+      font-size: 0.8rem;
+      font-size: clamp(0.8rem, 0.62rem + 0.75vw, 1rem);
+      margin-left: auto;
+    }
+  }
+}

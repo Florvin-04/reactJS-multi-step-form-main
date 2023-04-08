@@ -1,0 +1,76 @@
+@use "../styles/functions.scss" as *;
+
+.check-out__wrapper {
+  padding: 1em 1.3em;
+  background-color: hsl(var(--Neutral-300));
+  border-radius: 0.5rem;
+
+  .billing__plan {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: rem(1) solid hsl(var(--Neutral-200));
+    padding-bottom: 1em;
+
+    .chosen {
+      //
+
+      &--plan {
+        color: hsl(var(--Primary-100));
+        font-weight: 700;
+        line-height: 1;
+        font-size: clamp(1rem, 0.82rem + 0.75vw, 1.2rem);
+      }
+
+      .change__plan {
+        border: none;
+        background-color: transparent;
+        color: hsl(var(--Neutral-100));
+        text-decoration: underline;
+        text-decoration-thickness: 0.1rem;
+        cursor: pointer;
+
+        font-size: clamp(0.9rem, 0.72rem + 0.75vw, 1.1rem);
+      }
+    }
+
+    &--price {
+      color: hsl(var(--Primary-100));
+      font-weight: 700;
+      font-size: clamp(1rem, 0.91rem + 0.37vw, 1.1rem);
+    }
+  }
+
+  .chosen__addons {
+    padding-top: 1em;
+    display: flex;
+    justify-content: space-between;
+    font-size: clamp(0.9rem, 0.72rem + 0.75vw, 1.1rem);
+
+    &--name {
+      color: hsl(var(--Neutral-100));
+    }
+
+    &--price {
+      color: hsl(var(--Primary-100));
+    }
+  }
+}
+
+.total {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: clamp(0.9rem, 0.72rem + 0.75vw, 1.1rem);
+
+  &--name {
+    color: hsl(var(--Neutral-100));
+  }
+  &--price {
+    color: hsl(var(--Primary-200));
+
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+}

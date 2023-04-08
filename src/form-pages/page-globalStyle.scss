@@ -1,0 +1,18 @@
+@use "../styles/functions.scss" as *;
+
+.page {
+  //
+
+  .page-title {
+    color: hsl(var(--Primary-100));
+    font-size: 1.5rem;
+    font-size: clamp(1.5rem, 0.618rem + 3.76vw, 2.5rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-description {
+    color: hsl(var(--Neutral-100));
+    font-size: 0.9rem;
+    font-size: clamp(0.9rem, 0.72rem + 0.75vw, 1.1rem);
+  }
+}

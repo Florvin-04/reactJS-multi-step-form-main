@@ -1,0 +1,77 @@
+@use "../styles/functions.scss" as *;
+
+.tabs__container {
+  // outline: 1px solid red;
+  margin-top: 1.5rem;
+  display: flex;
+
+  gap: 1rem;
+  height: max-content;
+
+  @include breakpoint(medium) {
+    margin-top: 2rem;
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+
+  .step__container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .step__circle {
+      --padding-cirle: 0.2em;
+      font-size: 0.9rem;
+      font-size: clamp(0.9rem, 0.63rem + 1.13vw, 1.2rem);
+      font-weight: 500;
+      width: max-content;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      padding: var(--padding-cirle) calc(var(--padding-cirle) + 0.5em);
+
+      color: hsl(var(--Neutral-400));
+      border: rem(1) solid hsl(var(--Neutral-200));
+
+      // @include breakpoint(medium) {
+      //   // --padding-cirle: 0.5em;
+
+      // }
+
+      &.active {
+        background-color: hsl(var(--Primary-300));
+        border: rem(1) solid hsl(var(--Primary-300));
+        color: hsl(var(--Primary-100));
+      }
+    }
+
+    .more-info {
+      line-height: 1.3;
+      text-transform: uppercase;
+      display: none;
+
+      @include breakpoint(medium) {
+        display: block;
+      }
+
+      .step {
+        color: hsl(var(--Neutral-200) / 0.7);
+        font-size: 0.8rem;
+
+        @include breakpoint(medium) {
+          font-size: 0.9rem;
+        }
+      }
+
+      .step-title {
+        font-size: 0.8rem;
+        color: hsl(var(--Neutral-400));
+        font-weight: 500;
+        letter-spacing: 0.1rem;
+
+        @include breakpoint(medium) {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
