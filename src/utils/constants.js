@@ -54,7 +54,7 @@ export const infoFields = [
     id: 2,
     label: "email address",
     name: "email",
-    type: "email",
+    type: "text",
     placeholder: "e.g. vanessamint@mail.com",
   },
   {

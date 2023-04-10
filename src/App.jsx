@@ -8,6 +8,12 @@ import Page3 from "./form-pages/page3";
 import Page4 from "./form-pages/page4";
 import ThankYouPage from "./form-pages/thankYouPage";
 
+// import Page5 from "./form-pages/page5";
+
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 export const FormContext = createContext(null);
 
 const initialData = {
@@ -26,11 +32,9 @@ const initialData = {
 function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [toggleBiling, setToggleBilling] = useState("monthly");
-  const [submitting, setSubmitting] = useState(false);
-  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState(
-    JSON.parse(localStorage.getItem("formData")) || initialData
+    () => JSON.parse(localStorage.getItem("formData")) || initialData
   );
 
   useEffect(() => {
@@ -38,50 +42,80 @@ function App() {
     // console.log(formData);
   }, [formData]);
 
-  function validateFields(formData) {
-    const errors = {};
+  const userDataSchema = yup.object().shape({
+    name: yup.string().required("Name is a required field."),
+    email: yup.string().email("Enter a valid Email").required("Email is a required field."),
+    phone: yup
+      .string()
+      .transform((value) => (Number.isNaN(value) ? "" : value))
+      .required("Phone Number is a required field.")
+      .min(11, "Invalid Phone Number")
+      .test("isNumber", "Accepts Number only", (value) => {
+        return /^\d+$/.test(value.toString());
+      }),
+  });
 
-    if (formData.name === "") {
-      errors.name = "This field is required";
-    }
-    if (formData.email === "") {
-      errors.email = "This field is required";
-    }
-    if (formData.phone === "") {
-      errors.phone = "This field is required";
-    }
-    return errors;
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue,
+    setError,
+    clearErrors,
+  } = useForm({
+    resolver: yupResolver(userDataSchema),
+  });
 
-  function nextPage() {
-    console.log(errors);
-    console.log(Object.keys(errors).length, submitting);
-    if (Object.keys(errors).length === 0 && submitting) {
-      setCurrentPage((prev) => prev + 1);
-      if (currentPage === 4) {
-        alert("thanks");
-        setFormData(initialData);
-      }
-    }
-  }
+  useEffect(() => {
+    Object.entries(formData).forEach(([key, value]) => {
+      setValue(key, value);
+    });
+  }, [setValue]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setErrors(validateFields(formData));
-    setSubmitting(true);
+  const validateInput = (fieldName, value) => {
+    yup
+      .reach(userDataSchema, fieldName)
+      .validate(value)
+      .then(() => {
+        clearErrors(fieldName);
+      })
+      .catch((err) => {
+        setError(fieldName, { type: "manual", message: err.message });
+      });
+  };
+
+  function submitForm(data) {
+    setCurrentPage((prev) => prev + 1);
+
+    if (currentPage === 1) {
+      setFormData((prevUserData) => ({
+        ...prevUserData,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      }));
+    }
+
+    if (currentPage === 4) {
+      reset();
+      setFormData(initialData);
+      console.log(formData);
+      alert("Data has been Submitted");
+    }
   }
 
   return (
     <div className="App">
       <main>
         <aside className="header">
-          <Tabs />
+          <Tabs currentPage={currentPage} />
         </aside>
 
         <div className="form__wrapper">
           <form
             id="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(submitForm)}
           >
             <FormContext.Provider
               value={{
@@ -90,7 +124,12 @@ function App() {
                 toggleBiling,
                 setToggleBilling,
                 setCurrentPage,
+                register,
                 errors,
+                setError,
+                clearErrors,
+                userDataSchema,
+                validateInput,
               }}
             >
               {currentPage === 1 && <Page1 />}
@@ -98,10 +137,11 @@ function App() {
               {currentPage === 3 && <Page3 />}
               {currentPage === 4 && <Page4 />}
               {currentPage === 5 && <ThankYouPage />}
+              {currentPage === 6 && <Page5 />}
             </FormContext.Provider>
           </form>
 
-          <div className="buttons">
+          <div className={`buttons ${currentPage === 5 ? "hidden" : ""}`}>
             <button
               type="button"
               className={`prev-btn ${currentPage !== 1 ? "" : "hidden"}`}
@@ -114,7 +154,7 @@ function App() {
               type="submit"
               className="next-btn"
               form="form"
-              onClick={nextPage}
+              // onClick={nextPage}
             >
               {currentPage === 4 ? "Confirm" : "Next Step"}
             </button>

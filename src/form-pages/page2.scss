@@ -16,6 +16,7 @@
     gap: 1rem;
     border-radius: 0.5rem;
 
+
     &:hover {
       border-color: hsl(var(--Primary-200));
     }
@@ -23,7 +24,7 @@
     @include breakpoint(medium) {
       flex-direction: column;
       justify-content: space-between;
-      height: rem(160);
+      height: rem(200);
     }
 
     .label-image {
@@ -43,6 +44,13 @@
       &--price {
         color: hsl(var(--Neutral-100));
         font-size: clamp(0.8rem, 0.62rem + 0.75vw, 1rem);
+      }
+
+      .free{
+        margin-top: .3rem;
+        color: hsl(var(--Primary-200));
+        font-weight: 500;
+        font-size: .9rem;
       }
     }
   }

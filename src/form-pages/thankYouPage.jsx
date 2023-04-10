@@ -15,7 +15,7 @@ function thankYouPage() {
     <div className="thank-you">
       <img
         src={thanksIcon}
-        alt="Thank you Icon"
+        alt=""
       />
       <h1 className="thanks"> Thank you!</h1>
       <p className="thanks__description1">Thanks for confirmimg your subscription!</p>

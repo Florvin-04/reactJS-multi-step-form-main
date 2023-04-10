@@ -35,6 +35,10 @@
 
       font-size: 1.2rem;
 
+      &.invalid {
+        border-color: hsl(var(--Primary-500));
+      }
+
       &::placeholder {
         color: grey;
       }

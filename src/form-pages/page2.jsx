@@ -34,7 +34,7 @@ function page2() {
     setPlanValue({
       billing: toggleBiling,
       name: id,
-      price: value,
+      price: Number(value),
       id: Number(targetID),
     });
   }
@@ -89,6 +89,7 @@ function page2() {
               <p className="label__info--price">{`$${
                 toggleBiling === "monthly" ? `${monthlyPrice}/mo` : `${yearlyPrice}/yr`
               } `}</p>
+             {toggleBiling === "yearly" && <p className="free">2 months free</p>}
             </div>
           </label>
         </div>

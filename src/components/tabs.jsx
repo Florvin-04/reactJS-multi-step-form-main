@@ -3,7 +3,7 @@ import "./tabs.scss";
 
 import { steps } from "../utils/constants.js";
 
-function tabs() {
+function tabs(props) {
   const step = useMemo(() => {
     return steps.map((item, idx) => {
       return (
@@ -11,7 +11,7 @@ function tabs() {
           className="step__container"
           key={idx}
         >
-          <div className="step__circle">
+          <div className={`step__circle ${props.currentPage == item.step ? "active" : ""}`}>
             <span>{item.step}</span>
           </div>
           <div className="more-info">
@@ -21,7 +21,7 @@ function tabs() {
         </div>
       );
     });
-  }, []);
+  }, [props.currentPage]);
 
   return (
     <div className="tabs__container">

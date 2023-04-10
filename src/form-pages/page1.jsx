@@ -1,50 +1,41 @@
-import React, { useMemo, useState, useContext, useEffect } from "react";
+import React, { useMemo, useContext } from "react";
 import "./page1.scss";
 import "./page-globalStyle.scss";
 
 import { infoFields } from "../utils/constants";
 import { FormContext } from "../App";
 
+import * as yup from "yup";
+
 function page1() {
-  const { setFormData, formData, errors } = useContext(FormContext);
-
-  function getUserData(e) {
-    const { value, name } = e.target;
-
-    if (name === "phone" && isNaN(value)) return;
-
-    setFormData((prevUserData) => ({
-      ...prevUserData,
-      [name]: value,
-    }));
-  }
+  const { formData, register, errors, validateInput } = useContext(FormContext);
 
   const input = useMemo(() => {
     return infoFields.map((item, idx) => {
-      console.log(errors[item.name]);
       return (
         <div
           key={idx}
           className="input__wrapper"
         >
           <label htmlFor={item.name}>
-            <p className="label-title">{item.label}</p>
-            {errors[item.name] && <p className="error-response">{errors[item.name]}</p>}
+            <p className={`label-title`}>{item.label}</p>
+            {errors[item.name] && <p className="error-response">{errors[item.name].message}</p>}
             <input
-              className="input-field"
+              className={`input-field  ${errors[item.name]?.message ? "invalid" : ""}`}
               type={item.type}
               placeholder={item.placeholder}
               name={item.name}
               id={item.name}
-              onChange={getUserData}
-              value={formData[item.name]}
-              // required
+              {...register(item.name)}
+              onChange={(e) => {
+                validateInput(item.name, e.target.value);
+              }}
             />
           </label>
         </div>
       );
     });
-  }, [formData, errors]);
+  }, [formData, validateInput]);
 
   return (
     <div className="page">
